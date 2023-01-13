@@ -5,9 +5,9 @@ const userSchema = new mongoose.Schema({
   last_name: String,
   phone: String,
   email: String,
-  wallet: Number,
+  wallet: { type: String, default: 0 },
   created_At: { type: Date, default: Date.now() },
   updated_At: { type: Date, default: Date.now() }
 })
-const userModel = mongoose.model('User', userSchema)
-module.exports = userModel
+const UserModel = mongoose.model('User', userSchema)
+module.exports = UserModel
