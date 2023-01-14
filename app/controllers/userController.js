@@ -40,7 +40,28 @@ const addUser = async (req, res, next) => {
     console.log(error.message)
   }
 }
+const getUser = async (req, res, next) => {
+  if (req.params.id === '' || req.params.id === null) {
+    return res.send({
+      sucess: false,
+      message: 'هیچ داده ای ارسال نشده'
+    })
+  }
+  try {
+    const user = await UserModel.findOne({ _id: req.params.id })
+    res.send({
+      sucess: true,
+      message: 'عملیات مورد نظر با موفقیت انجام شد',
+      data: {
+        user
+      }
+    })
+  } catch (error) {
+    console.log(error.message)
+  }
+}
 module.exports = {
   userList,
-  addUser
+  addUser,
+  getUser
 }
