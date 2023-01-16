@@ -81,9 +81,31 @@ const deleteUser = async (req, res, next) => {
     })
   }
 }
+const updateUser = async (req, res, next) => {
+  if (_.isNull(req.params.id) || _.isUndefined(req.params.id)) {
+    return res.send({
+      sucess: false,
+      message: 'عملیات با شکست مواجه شد'
+    })
+  }
+  try {
+    const data = await UserModel.updateOne({ _id: req.params.id }, { ...req.body })
+    res.send({
+      sucess: true,
+      message: 'کاربر مورد نظر با موفقیت بروزرسانی شد',
+      data
+    })
+  } catch (error) {
+    res.send({
+      sucess: false,
+      message: 'عملیات با شکست مواجه شد'
+    })
+  }
+}
 module.exports = {
   userList,
   addUser,
   getUser,
-  deleteUser
+  deleteUser,
+  updateUser
 }
