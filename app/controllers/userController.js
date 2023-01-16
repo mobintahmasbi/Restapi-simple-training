@@ -60,8 +60,30 @@ const getUser = async (req, res, next) => {
     console.log(error.message)
   }
 }
+const deleteUser = async (req, res, next) => {
+  if (_.isNull(req.params.id) || _.isUndefined(req.params.id)) {
+    return res.send({
+      sucess: false,
+      message: 'عملیات با شکست مواجه شد'
+    })
+  }
+  try {
+    const data = await UserModel.deleteOne({ _id: req.params.id })
+    res.send({
+      sucess: true,
+      message: 'کاربر مورد نظر با موفقیت حذف شد',
+      data
+    })
+  } catch (error) {
+    res.send({
+      sucess: false,
+      message: 'کاربر مورد نظر یافت نشد'
+    })
+  }
+}
 module.exports = {
   userList,
   addUser,
-  getUser
+  getUser,
+  deleteUser
 }
